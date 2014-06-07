@@ -1,3 +1,11 @@
+### 2.99.1 Development
+
+Deprecations:
+
+ * Deprecate `RSpec.reset` implicitly being called at the end of an RSpec run.
+   Users now have to call `RSpec.reset` manually. (Sam Phippen)
+
+
 ### 2.99.0 / 2014-06-01
 [Full Changelog](http://github.com/rspec/rspec-core/compare/v2.99.0.rc1...v2.99.0)
 
