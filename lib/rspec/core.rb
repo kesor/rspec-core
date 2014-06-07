@@ -78,7 +78,7 @@ module RSpec
   # @private
   # Warns that RSpec 3.0.0 will no longer call reset for users
   def self.warn_about_calling_reset
-    RSpec.warn_deprecation(<<-EOD)
+    RSpec.configuration.deprecation_stream.puts(<<-EOD)
 Calling `RSpec::Core::Runner.run` will no longer implicitly invoke
 `RSpec.reset` as of RSpec 3.0.0. If you need RSpec to be reset between your
 calls to `RSpec::Core::Runner.run` please invoke `RSpec.reset` manually in the

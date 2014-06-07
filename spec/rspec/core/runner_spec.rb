@@ -32,11 +32,18 @@ module RSpec::Core
         RSpec::Core::Runner.run([], err, out)
       end
 
+      it "does not issue a deprecation warning at the end of the first run" do
+        RSpec.configuration.stub(:files_to_run => [])
+        RSpec.should_receive(:internal_reset)
+        expect(RSpec.configuration.deprecation_stream).not_to receive(:puts).with(/no longer implicitly/)
+        RSpec::Core::Runner.run([], err, out)
+      end
+
       it "issues a deprecation if warn is invoked twice and reset is not called manually" do
         RSpec.configuration.stub(:files_to_run => [])
         RSpec::Core::Runner.run([], err, out)
         RSpec.configuration.stub(:files_to_run => [])
-        expect(RSpec).to receive(:warn_deprecation).with(/no longer implicitly/)
+        expect(RSpec.configuration.deprecation_stream).to receive(:puts).with(/no longer implicitly/)
         RSpec::Core::Runner.run([], err, out)
       end
 
