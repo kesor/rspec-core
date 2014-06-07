@@ -26,6 +26,8 @@ module RSpec::Core
       let(:err) { StringIO.new }
       let(:out) { StringIO.new }
 
+      after { RSpec.instance_variable_set(:@reset_count, 0) }
+
       it "tells RSpec to reset" do
         RSpec.configuration.stub(:files_to_run => [])
         RSpec.should_receive(:internal_reset)

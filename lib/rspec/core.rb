@@ -86,6 +86,11 @@ appropriate place.
 EOD
   end
 
+  def self.first_reset?
+    @reset_count ||= 0
+    (@reset_count == 0).tap { @reset_count += 1 }
+  end
+
   # @public
   # Used internally to ensure examples get reloaded between multiple runs in
   # the same process.
@@ -98,7 +103,7 @@ EOD
   # @see RSpec.reset
   # Warns if the user has invoked RSpec.run twice in the same process.
   def self.internal_reset
-    warn_about_calling_reset unless user_has_called_reset?
+    warn_about_calling_reset if !user_has_called_reset? && !first_reset?
     @world = nil
     @configuration = nil
   end
